@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <name>halcon_pose_estimation</name>
+  <version>0.0.0</version>
+  <description>Take pointcloud2 from 3D sensor (pointcloud2) and convert to suitable processing format. (First, HObjectmodel from Halcon) </description>
+  <maintainer email="eirikwha@stud.ntnu.no">Eirik Wik Haug</maintainer>
+  <license>MIT</license>
+  <url type="website">http://github.com/eirikwha</url>
+  <author email="eirikwha@stud.ntnu.no">Eirik Wik Haug</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend> roslib </build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>asr_halcon_bridge</build_depend>
+  <build_depend>eigen3</build_depend>
+  <build_depend> kuka_eki_msgs </build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>pcl_ros</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>asr_halcon_bridge</run_depend>
+  <run_depend>eigen3</run_depend>
+
+</package>

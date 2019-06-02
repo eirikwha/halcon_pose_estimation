@@ -1,0 +1,11 @@
+num_matches: 1
+max_overlap_dist_rel: 0.5
+scene_normal_computation: mls
+sparse_pose_refinement: true
+score_type: model_point_fraction
+pose_ref_use_scene_normals: false
+dense_pose_refinement: true
+pose_ref_num_steps: 10
+pose_ref_sub_sampling: 2
+pose_ref_dist_threshold_rel: 0.1
+pose_ref_scoring_dist_rel: 0.005
