@@ -8,12 +8,12 @@
 // Set default values
 // TODO: Intermediate visualization of normals, keypoints and samples.
 
-#include "pose_estimator/halcon_io.h"
-#include "pose_estimator/halcon_object_model.h"
-#include "pose_estimator/halcon_surface_model.h"
+#include "halcon_pose_estimation/halcon_io.h"
+#include "halcon_pose_estimation/halcon_object_model.h"
+#include "halcon_pose_estimation/halcon_surface_model.h"
 #include "asr_halcon_bridge/halcon_pointcloud.h"
 #include <sensor_msgs/PointCloud2.h>
-#include "pose_estimator/pcl_file_handler.h"
+#include "halcon_pose_estimation/pcl_file_handler.h"
 #include <pcl/visualization/pcl_visualizer.h>
 
 void printHelp(int, char **argv){

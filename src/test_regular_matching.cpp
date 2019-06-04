@@ -12,7 +12,6 @@
 
 int main() {
 
-
     ClearAllObjectModel3d(); // clear from memory
     ClearAllSurfaceModels(); // clear from memory
 
@@ -41,6 +40,8 @@ int main() {
          << "---------- FIND SURFACE MODEL: ---------\n"
          << "----------------------------------------\n"<< endl;
 
+    /// Appending settings to HTuple genParamName and genParamValue
+    /// NB! Needs to be const char* or .c_str()
     genParamName.Append("num_matches");
     genParamName.Append("max_overlap_dist_rel");
     genParamName.Append("scene_normal_computation");
