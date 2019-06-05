@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
+
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+
 project(halcon_pose_estimation)
 
 ## Use C++11
@@ -124,6 +127,7 @@ target_link_libraries(
         test_surface_model_creator
         ${PROJECT_NAME}
         ${catkin_LIBRARIES}
+        yaml-cpp
         halcon
         halconcpp
 )

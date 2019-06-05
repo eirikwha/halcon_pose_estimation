@@ -68,12 +68,16 @@ int main() {
 
 
     cout << "Trying to match model and scene." << endl;
-    HalconSurfaceMatching::findSurfaceModel3D(model,scene, poses, matchingResultID,
+    HalconSurfaceMatching::findSurfaceModel3D(model, scene, poses, matchingResultID,
             genParamName, genParamValue);
 
-    PoseResultHandler::printPosesAndScores(matchingResultID,5);
+    int numMatches = PoseResultHandler::getNumMatches(poses);
 
-    PoseResultHandler::getSinglePose(matchingResultID,1, bestPose);
+    cout << "Number of matches:" << numMatches << endl;
+
+    PoseResultHandler::printPosesAndScores(matchingResultID, numMatches);
+
+    PoseResultHandler::getSinglePose(matchingResultID,0, bestPose);
     cout << "\nBest pose: " << bestPose.ToString() << endl;
 
     HTuple rotQuat, trans, geometryMsg;
@@ -111,6 +115,8 @@ int main() {
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr scene1 (new pcl::PointCloud<pcl::PointXYZRGB>());
     scene1 = PCLFileHandler::loadPlyToPointXYZRGB(objModelPath);
     PCLViz::twoInOneVis(model1,scene1);
+
+    cout << "Clearing all Halcon object and surface models from memory" << endl;
 
     ClearAllObjectModel3d(); // clear from memory
     ClearAllSurfaceModels(); // clear from memory

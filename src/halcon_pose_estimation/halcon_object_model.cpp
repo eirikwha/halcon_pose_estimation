@@ -34,10 +34,7 @@ namespace HalconObjectModel {
             GetObjectModel3dParams(objectModel3D, HTuple("has_point_normals"), &hasPointNormals);
 
             string value = (string) hasPointNormals.ToString();
-            if (value.compare("true") == 0) {
-                res = true;
-            } else
-                res = false;
+            res = value.compare("true") == 0;
 
         }
         catch (HException &except) {
@@ -55,10 +52,7 @@ namespace HalconObjectModel {
                                    &hasSurfaceBasedMatchingData);
 
             string value = (string) hasSurfaceBasedMatchingData.ToString();
-            if (value.compare("true") == 0) {
-                res = true;
-            } else
-                res = false;
+            res = value.compare("true") == 0;
 
         }
         catch (HException &except) {
@@ -137,7 +131,7 @@ namespace HalconObjectModel {
         HTuple diameter;
 
         try {
-            GetObjectModel3dParams(objectModel3D, HTuple("diameter"), &diameter);
+            GetObjectModel3dParams(objectModel3D, HTuple("diameter_axis_aligned_bounding_box"), &diameter);
         }
         catch (HException &except) {
             cout << except.ErrorMessage() << " in Create3DObjectModel::getDiameter()" << endl;

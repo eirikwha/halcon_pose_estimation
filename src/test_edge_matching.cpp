@@ -31,7 +31,7 @@ int main() {
     HTuple status;
     HObject image;
 
-    const char* surfModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/output/MG1_SURFMODEL.sfm";
+    const char* surfModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/output/MG1_SURFMODEL_EDGES.sfm";
     const char* objModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/input/smallbin_1_ordered.ply";
     const char* objImagePath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/input/smallbin_1_ordered.png";
     const char* stlModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/input/MG1.stl";
@@ -56,7 +56,7 @@ int main() {
 
     cout << "----------------------------------------\n"
          << "---------- ADD CAMERA PARAMS: ----------\n"
-         << "----------------------------------------\n"<< endl;
+         << "----------------------------------------\n"<< endl << endl;
 
     HTuple sfmGenParamName, sfmGenParamValue;
     sfmGenParamName.Append("camera_parameter 0");
@@ -120,9 +120,13 @@ int main() {
     HalconSurfaceMatching::findSurfaceModel3DEdges(model,scene, image, poses, matchingResultID,
             genParamName, genParamValue);
 
-    PoseResultHandler::printPosesAndScores(matchingResultID,1);
+    int numMatches = PoseResultHandler::getNumMatches(poses);
 
-    PoseResultHandler::getSinglePose(matchingResultID,1, bestPose);
+    cout << "Number of matches:" << numMatches << endl;
+
+    PoseResultHandler::printPosesAndScores(matchingResultID, numMatches);
+
+    PoseResultHandler::getSinglePose(matchingResultID,0, bestPose);
     cout << "\nBest pose: " << bestPose.ToString() << endl;
 
     HTuple rotQuat, trans, geometryMsg;
@@ -140,12 +144,13 @@ int main() {
     HalconPoseConversion::poseToEigen4fPose(bestPose,t);
     cout << "\nHomogenous transformation matrix of the best pose: \n\n" << t << endl << endl;
 
+
     cout << "----------------------------------------\n"
          << "------------ TRANSFORMATION: -----------\n"
          << "----------------------------------------\n"<< endl;
 
     HTuple modelVis;
-    HalconIO::readObjectModel3D(stlModelPath,1,modelVis);
+    HalconIO::readObjectModel3D(stlModelPath, 1, modelVis);
 
     cout << "Trying to transform model into best pose for visualization" << endl;
     HalconObjectModel::rigidTrans(bestPose, modelVis, transformedModel);
@@ -157,8 +162,10 @@ int main() {
     model1 = PCLFileHandler::loadStlToPclMesh(transformedStlPath);
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr scene1 (new pcl::PointCloud<pcl::PointXYZRGB>());
-    scene1 = loadPlyToPointXYZRGB(objModelPath);
+    scene1 = PCLFileHandler::loadPlyToPointXYZRGB(objModelPath);
     PCLViz::twoInOneVis(model1,scene1);
+
+    cout << "Clearing all Halcon object and surface models from memory" << endl;
 
     ClearAllObjectModel3d(); // clear from memory
     ClearAllSurfaceModels(); // clear from memory
