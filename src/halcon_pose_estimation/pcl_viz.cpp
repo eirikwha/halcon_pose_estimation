@@ -102,19 +102,23 @@ namespace PCLViz {
     }
 
     pcl::visualization::PCLVisualizer twoInOneVis(
-            pcl::PolygonMesh::ConstPtr cloud1, pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud2) {
+            pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud1, pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud2) {
+
+        /*pcl::PolygonMesh::ConstPtr cloud1*/
 
         pcl::visualization::PCLVisualizer viewer("3D Viewer");
         viewer.initCameraParameters();
 
         int v1(0);
-        viewer.addPolygonMesh(*cloud1, "mesh 1", v1); //test
+        //viewer.addPolygonMesh(*cloud1, "mesh 1", v1); //test
+        viewer.addPointCloud(cloud1, "sample cloud 2", v1);
         viewer.addPointCloud(cloud2, "sample cloud 1", v1);
 
         viewer.setBackgroundColor(0, 0, 0, v1);
         viewer.addText("Scene", 30, 30, 20, 100.0, 100.0, 0.0, "v2 text", v1);
         viewer.addCoordinateSystem(100, "sample cloud 1", v1);
-        viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "sample cloud 1");
+        viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 0.8, "sample cloud 1");
+        viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "sample cloud 2");
         viewer.resetCamera();
         viewer.spinOnce();
 

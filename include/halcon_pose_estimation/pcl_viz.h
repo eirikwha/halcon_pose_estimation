@@ -18,8 +18,12 @@ namespace PCLViz {
     pcl::visualization::PCLVisualizer twoViewportsVis(
             pcl::PolygonMesh::ConstPtr cloud1, pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud2);
 
-    pcl::visualization::PCLVisualizer twoInOneVis(
+    /*pcl::visualization::PCLVisualizer twoInOneVis(
             pcl::PolygonMesh::ConstPtr cloud1, pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud2);
+    */
+
+    pcl::visualization::PCLVisualizer twoInOneVis(
+            pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud1, pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud2);
 
 }
 

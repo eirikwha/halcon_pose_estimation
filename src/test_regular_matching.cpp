@@ -26,8 +26,8 @@ int main() {
 
     const char* surfModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/output/MG1_SURFMODEL.sfm";
     const char* objModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/input/smallbin_1_ordered.ply";
-    const char* stlModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/input/MG1.stl";
-    const char* transformedStlPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/output/transformed.stl";
+    const char* plyModelPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/input/MG1_green.ply";
+    const char* transformedPlyPath = "/home/eirik/catkin_ws/src/halcon_pose_estimation/data/output/MG1_transformed.ply";
 
     cout << "----------------------------------------\n"
          << "------ FETCHING MODEL AND SCENE: -------\n"
@@ -101,16 +101,16 @@ int main() {
          << "----------------------------------------\n"<< endl;
 
     HTuple modelVis;
-    HalconIO::readObjectModel3D(stlModelPath, 1, modelVis);
+    HalconIO::readObjectModel3D(plyModelPath, 1, modelVis);
 
     cout << "Trying to transform model into best pose for visualization" << endl;
     HalconObjectModel::rigidTrans(bestPose, modelVis, transformedModel);
 
     cout << "Trying to save transformed model." << endl;
-    HalconIO::writeObjectModel3DPly(transformedStlPath, transformedModel);
+    HalconIO::writeObjectModel3DPly(transformedPlyPath, transformedModel);
 
-    pcl::PolygonMesh::Ptr model1 (new pcl::PolygonMesh());
-    model1 = PCLFileHandler::loadStlToPclMesh(transformedStlPath);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr model1 (new pcl::PointCloud<pcl::PointXYZRGB>());
+    model1 = PCLFileHandler::loadPlyToPointXYZRGB(transformedPlyPath);
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr scene1 (new pcl::PointCloud<pcl::PointXYZRGB>());
     scene1 = PCLFileHandler::loadPlyToPointXYZRGB(objModelPath);
