@@ -52,6 +52,7 @@ catkin_package(
     sensor_msgs
     geometry_msgs
     asr_halcon_bridge
+    kuka_eki_msgs
 
 #  DEPENDS
     DEPENDS
